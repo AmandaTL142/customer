@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.example.demo.dto.CustomerResponseDto;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -30,13 +31,30 @@ public class Customer {
     @UpdateTimestamp
     private LocalDateTime dateEdited;
 
+    @Column(name = "hemmelighed1")
+    private String secret1;
+
+    @Column(name = "hemmelighed2")
+    private String secret2;
+
+
+    public Customer() {
+    }
+
+    public Customer(CustomerResponseDto body) {
+        this.firstName = body.getFirstName();
+        this.lastName = body.getLastName();
+        this.email = body.getEmail();
+        this.secret1 = "Hemmeligt1";
+        this.secret2 = "Hemmeligt2";
+    }
+
     public Customer(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-    }
-
-    public Customer() {
+        this.secret1 = "Hemmeligt1";
+        this.secret2 = "Hemmeligt2";
     }
 
     public int getId() {
@@ -86,5 +104,21 @@ public class Customer {
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, email, dateCreated, dateEdited);
+    }
+
+    public String getSecret1() {
+        return secret1;
+    }
+
+    public void setSecret1(String secret1) {
+        this.secret1 = secret1;
+    }
+
+    public String getSecret2() {
+        return secret2;
+    }
+
+    public void setSecret2(String secret2) {
+        this.secret2 = secret2;
     }
 }
